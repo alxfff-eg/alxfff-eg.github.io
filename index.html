@@ -50,7 +50,7 @@
             pointer-events: auto;
         }
 
-        /* شارة Coming Soon المضيئة للإعلان عن مرحلة التجهيز */
+        /* شارة Coming Soon المضيئة بالإعلان عن مرحلة التجهيز */
         .badge {
             display: inline-block;
             background: rgba(0, 255, 204, 0.07);
@@ -85,26 +85,29 @@
             font-weight: 300;
         }
 
-        /* زر التفاعل السحري */
+        /* زر التفاعل السحري مع اللون النيون - التعديل هنا */
         .btn-trigger {
             display: inline-block;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
+            background: rgba(0, 255, 204, 0.1);
+            border: 2px solid #00ffcc;
+            color: #00ffcc;
             padding: 0.7rem 2rem;
             border-radius: 50px;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: bold;
             letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+            text-transform: uppercase;
         }
 
         .btn-trigger:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #0099ff;
-            box-shadow: 0 0 20px rgba(0, 153, 255, 0.3);
-            transform: translateY(-2px);
+            background: rgba(0, 255, 204, 0.2);
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.5);
+            transform: translateY(-3px);
         }
 
         /* ستايل لوحة تحكم الحاسبة الزجاجية (Calculator Styling) */
@@ -221,22 +224,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-/* تحسين أداء ورؤية الخلفية على الموبايل */
-@media (max-width: 768px) {
-    body {
-        /* بنلغي الـ fixed عشان المتصفح ما يعملش زووم ويبوظ الجودة */
-        background-attachment: scroll !important;
-        /* بنخلي التركيز في السنتر بالظبط أو السنتر فوق حسب تفاصيل صورتك */
-        background-position: center center;
-    }
-    
-    .card-container {
-        padding: 2rem 1.5rem; /* تقليل الحواف شوية عشان تناسب الشاشات الصغيرة */
-        width: 85%;
-    }
-}
-
-
+        /* تحسين أداء ورؤية الخلفية على الموبايل - التعديلات الهندسية هنا */
+        @media (max-width: 768px) {
+            body {
+                /* بنستخدم الصورة الطولية للموبايل */
+                background-image: linear-gradient(rgba(10, 10, 12, 0.85), rgba(10, 10, 12, 0.85)), url('alxfff_cover_mobile.png');
+                /* بنخلي الخلفية تتحرك مع الاسكرول عشان أداء الموبايل */
+                background-attachment: scroll !important;
+                /* بنسنتر الخلفية بالظبط */
+                background-position: center center;
+            }
+            
+            .card-container {
+                padding: 2rem 1.5rem; /* تقليل الحواف شوية عشان تناسب الشاشات الصغيرة */
+                width: 85%;
+            }
+        }
     </style>
 </head>
 <body>
