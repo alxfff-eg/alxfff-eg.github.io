@@ -50,6 +50,22 @@
             pointer-events: auto;
         }
 
+        /* شارة Coming Soon المضيئة للإعلان عن مرحلة التجهيز */
+        .badge {
+            display: inline-block;
+            background: rgba(0, 255, 204, 0.07);
+            border: 1px solid #00ffcc;
+            color: #00ffcc;
+            padding: 0.4rem 1.4rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.15);
+            margin-bottom: 1.5rem;
+        }
+
         /* بهارات وتصميم كارت الـ Coming Soon */
         h1 {
             font-size: 2.6rem;
@@ -72,24 +88,22 @@
         /* زر التفاعل السحري */
         .btn-trigger {
             display: inline-block;
-            background: rgba(0, 255, 204, 0.07);
-            border: 1px solid #00ffcc;
-            color: #00ffcc;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
             padding: 0.7rem 2rem;
             border-radius: 50px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+            letter-spacing: 0.5px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .btn-trigger:hover {
-            background: #00ffcc;
-            color: #0a0a0c;
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.4);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #0099ff;
+            box-shadow: 0 0 20px rgba(0, 153, 255, 0.3);
             transform: translateY(-2px);
         }
 
@@ -155,6 +169,22 @@
             box-shadow: 0 0 15px rgba(0, 153, 255, 0.3);
         }
 
+        /* زر العودة لكارت البداية */
+        .btn-back {
+            background: none;
+            border: none;
+            color: #a0aec0;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+
+        .btn-back:hover {
+            color: #00ffcc;
+        }
+
         /* صندوق النتائج الزجاجي المشرق */
         .result-box {
             margin-top: 18px;
@@ -195,9 +225,10 @@
 <body>
 
     <div id="comingSoonCard" class="card-container visible">
+        <div class="badge">🚀 COMING SOON</div>
         <h1>ALX FFF</h1>
         <p class="subtitle">Alexandria Layer Xperiments</p>
-        <button class="btn-trigger" onclick="switchToCalculator()">🚀 احسب تكلفة طباعتك</button>
+        <button class="btn-trigger" onclick="switchToCalculator()">🛠️ جرب حاسبة التكاليف تجريبياً</button>
     </div>
 
     <div id="calculatorCard" class="card-container hidden">
@@ -243,10 +274,12 @@
                 <span id="resTotal">0.00 جنيه</span>
             </div>
         </div>
+
+        <button class="btn-back" onclick="switchToComingSoon()">العودة للرئيسية ←</button>
     </div>
 
     <script>
-        // التنقل السلس بين الكروت
+        // الانتقال للحاسبة
         function switchToCalculator() {
             document.getElementById('comingSoonCard').classList.remove('visible');
             document.getElementById('comingSoonCard').classList.add('hidden');
@@ -254,10 +287,21 @@
             setTimeout(() => {
                 document.getElementById('calculatorCard').classList.remove('hidden');
                 document.getElementById('calculatorCard').classList.add('visible');
-            }, 400); // تداخل الأنيميشن
+            }, 400);
         }
 
-        // منطق الحسابات الهندسي الاحترافي الخاص بك
+        // العودة لصفحة الـ Coming Soon
+        function switchToComingSoon() {
+            document.getElementById('calculatorCard').classList.remove('visible');
+            document.getElementById('calculatorCard').classList.add('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('comingSoonCard').classList.remove('hidden');
+                document.getElementById('comingSoonCard').classList.add('visible');
+            }, 400);
+        }
+
+        // منطق الحسابات الهندسي
         function calculateCost() {
             const category = document.getElementById('printerCategory').value;
             const weight = parseFloat(document.getElementById('weight').value);
@@ -269,10 +313,8 @@
                 return;
             }
 
-            // 1. حساب تكلفة الجرام
             const materialCost = (filamentPrice / 1000) * weight;
 
-            // 2. معامل الحسابات بناءً على الفئات الـ 3 (الكهرباء + الإهلاك بالجنيه المصري)
             let hourlyRate = 0;
             let markupFactor = 1.25; 
 
@@ -295,7 +337,6 @@
             document.getElementById('resPower').innerText = operationalCost.toFixed(2) + ' جنيه';
             document.getElementById('resTotal').innerText = totalCost.toFixed(2) + ' جنيه';
 
-            document.getElementById('resultBox').style.withFallback = 'block';
             document.getElementById('resultBox').style.display = 'block';
         }
     </script>
