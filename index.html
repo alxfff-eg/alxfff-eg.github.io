@@ -220,14 +220,31 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+/* تحسين أداء ورؤية الخلفية على الموبايل */
+@media (max-width: 768px) {
+    body {
+        /* بنلغي الـ fixed عشان المتصفح ما يعملش زووم ويبوظ الجودة */
+        background-attachment: scroll !important;
+        /* بنخلي التركيز في السنتر بالظبط أو السنتر فوق حسب تفاصيل صورتك */
+        background-position: center center;
+    }
+    
+    .card-container {
+        padding: 2rem 1.5rem; /* تقليل الحواف شوية عشان تناسب الشاشات الصغيرة */
+        width: 85%;
+    }
+}
+
+
     </style>
 </head>
 <body>
 
     <div id="comingSoonCard" class="card-container visible">
         <div class="badge">🚀 COMING SOON</div>
-        <h1>ALX FFF</h1>
-        <p class="subtitle">Alexandria Layer Xperiments</p>
+        <h1>Alexandria Layer Xperiments</h1>
+        <p class="subtitle">Intelligent Additive Solutions</p>
         <button class="btn-trigger" onclick="switchToCalculator()">🛠️ جرب حاسبة التكاليف تجريبياً</button>
     </div>
 
