@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alexandria Layer Xperiments | ALX FFF</title>
     <style>
-        /* إعدادات الخلفية والصورة */
+        /* إعدادات الخلفية الفخمة والصورة الموحدة */
         body {
             margin: 0;
             padding: 0;
@@ -20,26 +20,42 @@
             overflow: hidden;
         }
 
-        /* كارت التأثير الزجاجي (Glassmorphism) */
-        .container {
+        /* الكارت الزجاجي الرئيسي الموحد (Glassmorphism) */
+        .card-container {
             text-align: center;
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 3rem 4rem;
+            padding: 2.5rem 3.5rem;
             border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            max-width: 600px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
             width: 90%;
-            animation: fadeIn 1.5s ease-in-out;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            position: absolute;
+            box-sizing: border-box;
         }
 
-        /* البهارات الحركية والتصميم */
+        /* حالات الإخفاء والظهور بأنيميشن ناعم */
+        .hidden {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            pointer-events: none;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* بهارات وتصميم كارت الـ Coming Soon */
         h1 {
-            font-size: 3rem;
+            font-size: 2.6rem;
+            margin-top: 0;
             margin-bottom: 0.5rem;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             background: linear-gradient(45deg, #00ffcc, #0099ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -47,39 +63,241 @@
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #a0aec0;
             margin-bottom: 2rem;
             font-weight: 300;
         }
 
-        .badge {
+        /* زر التفاعل السحري */
+        .btn-trigger {
             display: inline-block;
-            background: rgba(0, 255, 204, 0.1);
+            background: rgba(0, 255, 204, 0.07);
             border: 1px solid #00ffcc;
             color: #00ffcc;
-            padding: 0.5rem 1.5rem;
+            padding: 0.7rem 2rem;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
             box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-trigger:hover {
+            background: #00ffcc;
+            color: #0a0a0c;
+            box-shadow: 0 0 25px rgba(0, 255, 204, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* ستايل لوحة تحكم الحاسبة الزجاجية (Calculator Styling) */
+        h2 {
+            color: #00ffcc;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            color: #a0aec0;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 12, 0.6);
+            color: white;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+            text-align: right;
+        }
+
+        input:focus, select:focus {
+            border-color: #0099ff;
+            box-shadow: 0 0 10px rgba(0, 153, 255, 0.2);
+        }
+
+        /* زر الحساب داخل الـ Widget */
+        .btn-calc {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #0099ff, #0066cc);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 5px;
+        }
+
+        .btn-calc:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 15px rgba(0, 153, 255, 0.3);
+        }
+
+        /* صندوق النتائج الزجاجي المشرق */
+        .result-box {
+            margin-top: 18px;
+            background: rgba(0, 255, 204, 0.03);
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px dashed rgba(0, 255, 204, 0.3);
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .result-item :last-child {
+            font-weight: 600;
+        }
+
+        .result-item:last-child {
+            margin-bottom: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 8px;
+            font-weight: bold;
+            color: #00ffcc;
+            font-size: 1.05rem;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Alexandria Layer Xperiments</h1>
-        <p class="subtitle">Intelligent Additive Solutions</p>
-        <div class="badge">🚀 Coming Soon</div>
+    <div id="comingSoonCard" class="card-container visible">
+        <h1>ALX FFF</h1>
+        <p class="subtitle">Alexandria Layer Xperiments</p>
+        <button class="btn-trigger" onclick="switchToCalculator()">🚀 احسب تكلفة طباعتك</button>
     </div>
 
+    <div id="calculatorCard" class="card-container hidden">
+        <h2>📐 حاسبة تكلفة الـ FDM الاحترافية</h2>
+        
+        <div class="input-group">
+            <label>فئة الطابعة (الماكينة):</label>
+            <select id="printerCategory">
+                <option value="hobby">طابعة اقتصادية / منزلية (مثل Ender-3) 🏠</option>
+                <option value="prosumer">طابعة سريعة / متطورة (مثل Bambu / Voron) ⚡</option>
+                <option value="industrial">طابعة صناعية / حارّة (مثل المطابع الكبيرة) 🏭</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label>وزن القطعة المطلوبة (جرام):</label>
+            <input type="number" id="weight" placeholder="مثال: 50" required>
+        </div>
+
+        <div class="input-group">
+            <label>سعر بكرة الفيلامنت الإجمالي (جنيه):</label>
+            <input type="number" id="filamentPrice" placeholder="مثال: 900" required>
+        </div>
+
+        <div class="input-group">
+            <label>وقت الطباعة المتوقع (بالساعات):</label>
+            <input type="number" id="printTime" placeholder="مثال: 5" required>
+        </div>
+
+        <button class="btn-calc" onclick="calculateCost()">احسب التكلفة الإجمالية ⚡</button>
+
+        <div class="result-box" id="resultBox">
+            <div class="result-item">
+                <span>تكلفة المواد الخام:</span>
+                <span id="resMaterial">0.00 جنيه</span>
+            </div>
+            <div class="result-item">
+                <span>تكلفة الطاقة والإهلاك المتوقع:</span>
+                <span id="resPower">0.00 جنيه</span>
+            </div>
+            <div class="result-item">
+                <span>السعر الإجمالي المقترح:</span>
+                <span id="resTotal">0.00 جنيه</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // التنقل السلس بين الكروت
+        function switchToCalculator() {
+            document.getElementById('comingSoonCard').classList.remove('visible');
+            document.getElementById('comingSoonCard').classList.add('hidden');
+            
+            setTimeout(() => {
+                document.getElementById('calculatorCard').classList.remove('hidden');
+                document.getElementById('calculatorCard').classList.add('visible');
+            }, 400); // تداخل الأنيميشن
+        }
+
+        // منطق الحسابات الهندسي الاحترافي الخاص بك
+        function calculateCost() {
+            const category = document.getElementById('printerCategory').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const filamentPrice = parseFloat(document.getElementById('filamentPrice').value);
+            const printTime = parseFloat(document.getElementById('printTime').value);
+
+            if (!weight || !filamentPrice || !printTime) {
+                alert('من فضلك املأ جميع الحقول الهندسية المطلوبة!');
+                return;
+            }
+
+            // 1. حساب تكلفة الجرام
+            const materialCost = (filamentPrice / 1000) * weight;
+
+            // 2. معامل الحسابات بناءً على الفئات الـ 3 (الكهرباء + الإهلاك بالجنيه المصري)
+            let hourlyRate = 0;
+            let markupFactor = 1.25; 
+
+            if (category === 'hobby') {
+                hourlyRate = 2.5; 
+                markupFactor = 1.25;
+            } else if (category === 'prosumer') {
+                hourlyRate = 4.5; 
+                markupFactor = 1.35; 
+            } else if (category === 'industrial') {
+                hourlyRate = 12.0; 
+                markupFactor = 1.50; 
+            }
+
+            const operationalCost = hourlyRate * printTime;
+            const baseCost = materialCost + operationalCost;
+            const totalCost = baseCost * markupFactor;
+
+            document.getElementById('resMaterial').innerText = materialCost.toFixed(2) + ' جنيه';
+            document.getElementById('resPower').innerText = operationalCost.toFixed(2) + ' جنيه';
+            document.getElementById('resTotal').innerText = totalCost.toFixed(2) + ' جنيه';
+
+            document.getElementById('resultBox').style.withFallback = 'block';
+            document.getElementById('resultBox').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
